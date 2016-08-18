@@ -38,6 +38,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Response\Data\Campaign.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Response\Data\ContactListData.cs" />
     <Compile Include="Response\Data\ContactMetadata.cs" />
     <Compile Include="Response\Data\DataItem.cs" />
+    <Compile Include="Response\Data\GraphStatistics.cs" />
     <Compile Include="Response\Data\ListRecipient.cs" />
     <Compile Include="Response\Data\MessageHistoryData.cs" />
     <Compile Include="Response\Data\MessageData.cs" />

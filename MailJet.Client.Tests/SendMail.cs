@@ -142,10 +142,10 @@ namespace MailJet.Client.Tests
         }
 
         [Test]
-        public void Mailjet_MailMessage_Html_NoAttachements()
+        public void MailMessage_Html_Campaign_NoAttachements()
         {
             var message = BaseMailjetMessage();
-            message.HtmlPart = "<b>TEST Mailjet without attachement</b>";
+            message.HtmlPart = "<b>TEST Mailjet without attachement</b> <br /> <a href='http://www.bing.com'>Click me</a>";
             message.MjCampaign = string.Format("TestApi_{0}-{1}", DateTime.Now.Year, DateTime.Now.Month);
             var result = _client.SendMessage(message);
             Assert.IsNotNull(result);
@@ -153,7 +153,7 @@ namespace MailJet.Client.Tests
         }
 
         [Test]
-        public void Mailjet_MailMessage_Html_WithAttachements()
+        public void MailMessage_Html_Campaign_WithAttachements()
         {
             var message = BaseMailjetMessage();
             message.HtmlPart = "<b>TEST Mailjet with attachement</b> <br /> <a href='http://www.bing.com'>Click me</a>";

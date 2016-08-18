@@ -15,6 +15,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text;
+using System.Xml;
 
 namespace MailJet.Client
 {
@@ -648,7 +649,7 @@ namespace MailJet.Client
         {
             var request = new RestRequest("REST/campaign/{id}", Method.GET);
             request.AddParameter("id", CampaignId, ParameterType.UrlSegment);
-           
+
             return ExecuteRequest<Campaign>(request);
         }
 
@@ -669,6 +670,41 @@ namespace MailJet.Client
                 request.AddQueryParameter("Sender", SenderId.Value.ToString());
 
             return ExecuteRequest<Campaign>(request);
+        }
+
+        public Response<GraphStatistics> GetGraphStatistics(
+                 long? CampaignID = null,
+                 string Scale = null,
+                 string Period = null,
+                  DateTime? FromTS = null,
+                  DateTime? ToTS = null,
+                 long? From = null,
+                 long? FromID = null)
+        {
+            var request = new RestRequest("REST/graphstatistics", Method.GET);
+
+            if (CampaignID.HasValue)
+                request.AddQueryParameter("CampaignID", CampaignID.Value.ToString());
+
+            if (!string.IsNullOrWhiteSpace(Scale))
+                request.AddQueryParameter("Scale", Scale);
+
+            if (!string.IsNullOrWhiteSpace(Period))
+                request.AddQueryParameter("Period", Period);
+            
+            if (FromTS.HasValue)
+                request.AddQueryParameter("FromTS", XmlConvert.ToString(FromTS.Value, XmlDateTimeSerializationMode.Utc));//"2016-07-16T07:10:24Z" FromTS.Value.ToString()
+
+            if (ToTS.HasValue)
+                request.AddQueryParameter("ToTS", XmlConvert.ToString(ToTS.Value, XmlDateTimeSerializationMode.Utc));//"2016-08-25T07:10:24Z"ToTS.Value.ToString()
+
+            if (From.HasValue)
+                request.AddQueryParameter("From", From.Value.ToString());
+
+            if (FromID.HasValue)
+                request.AddQueryParameter("FromID", FromID.Value.ToString());
+
+            return ExecuteRequest<GraphStatistics>(request);
         }
 
         public Response<CampaignAggregate> GetCampaignAggregates(

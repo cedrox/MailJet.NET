@@ -34,7 +34,7 @@ namespace MailJet.Client.Tests
         {
             if (!pMessageID.HasValue)
             {
-                var message = _client.GetMessages().Data.First();
+                var message = _client.GetMessages().Data.Last();
                 pMessageID = message.ID;
             }
 
