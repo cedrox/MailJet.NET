@@ -412,9 +412,6 @@ namespace MailJet.Client
             if (Message.Subject.Length > 255)
                 throw new InvalidOperationException("The subject cannot be longer than 255 characters. http://dev.mailjet.com/guides/send-api-guide/");
 
-            //if (Message.Recipients != null && !string.IsNullOrWhiteSpace(Message.Recipients.First().Email))
-            //    throw new NotImplementedException("Sender Email not yet supported.");
-
             int recipientsCount = Message.Recipients.Count();
 
             if (recipientsCount == 0)
@@ -473,12 +470,8 @@ namespace MailJet.Client
 
                 foreach (var item in Message.Attachments)
                 {
-
                     byte[] newByteArray = Encoding.Default.GetBytes(item.Content);
-                    //byte[] newByteArray = Encoding.Default.GetBytes(Convert.ToBase64String(array));
-
                     request.AddFile("attachment", newByteArray, item.Filename, item.ContentType);
-
                 }
             }
 
@@ -497,6 +490,9 @@ namespace MailJet.Client
 
             if (Message.MjCustomID != 0)
                 request.AddParameter("Mj-MjCustomID", Message.MjCustomID);
+
+            if (!string.IsNullOrEmpty(Message.MjEventPayLoad))
+                request.AddParameter("Mj-EventPayLoad", Message.MjEventPayLoad);
 
             //request.AddJsonBody(Message);
 
@@ -642,7 +638,6 @@ namespace MailJet.Client
         }
 
         #endregion
-
         #region Campaign
 
         public Response<Campaign> GetCampaign(string CampaignId)
@@ -691,7 +686,7 @@ namespace MailJet.Client
 
             if (!string.IsNullOrWhiteSpace(Period))
                 request.AddQueryParameter("Period", Period);
-            
+
             if (FromTS.HasValue)
                 request.AddQueryParameter("FromTS", XmlConvert.ToString(FromTS.Value, XmlDateTimeSerializationMode.Utc));//"2016-07-16T07:10:24Z" FromTS.Value.ToString()
 
@@ -759,6 +754,7 @@ namespace MailJet.Client
         /// <param name="CampaignAggregateID">Only show statistics for this aggregation.</param>
         /// <param name="Range">The period of the aggregates (24 hours or 7 days). Allowed values: "7d" or "24h"</param>
         /// <returns>Aggregated campaign statistics grouped over intervals.</returns>
+        /// <seealso cref="https://dev.mailjet.com/email-api/v3/aggregategraphstatistics/"/>
         public Response<AggregateGraphStatistics> GetAggregateGraphStatistics(int? CampaignAggregateID = null, string Range = null)
         {
             var request = new RestRequest("REST/aggregategraphstatistics", Method.GET);
@@ -772,6 +768,7 @@ namespace MailJet.Client
             return ExecuteRequest<AggregateGraphStatistics>(request);
         }
 
+        /// <seealso cref="https://api.mailjet.com/v3/REST/graphstatistics"/>
         public Response<AggregateGraphStatistics> GetGraphStatistics(int? CampaignID = null, string CampaignStatus = null)
         {
             var request = new RestRequest("REST/graphstatistics", Method.GET);

@@ -19,9 +19,14 @@ namespace MailJet.Client.Response.Data
         {
 
         }
+
+        /// <summary>
+        /// Not implemented
+        /// </summary>
+        /// <param name="pMailMessage"></param>
         public MailjetSendMail(MailMessage pMailMessage)
         {
-
+            throw new NotImplementedException();
         }
 
         public string FromEmail { get; set; }
@@ -114,10 +119,11 @@ namespace MailJet.Client.Response.Data
         /// <summary>
         /// Attach a payload to the message
         /// Equivalent to using the X-MJ-EventPayload header through SMTP.
+        /// comma separated value (exemple : Eticket,1234,row,15,seat,B)
         /// </summary>
         /// <see cref="http://dev.mailjet.com/guides/#sending-an-email-with-a-payload"/>
         [JsonProperty("Mj-EventPayLoad")]
-        public int MjEventPayLoad { get; set; }
+        public string MjEventPayLoad { get; set; }
 
         public Dictionary<string, object> Vars { get; set; }
 
