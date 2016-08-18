@@ -89,8 +89,8 @@ namespace MailJet.Client.Tests
         public void MailMessage_Text_NoAttachements_Batch()
         {
             var message = BaseMessage();
-            message.To.Add(new MailAddress("v-cefo@microsoft.com"));
-            message.To.Add(new MailAddress("cedricf@outlook.com"));
+            message.To.Add(new MailAddress("*"));
+            message.To.Add(new MailAddress("*"));
 
             message.Body = "test";
             var result = _client.SendMessage(message);
