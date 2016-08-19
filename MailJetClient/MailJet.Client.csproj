@@ -38,8 +38,10 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Response\Data\Campaign.cs" />
     <Compile Include="Converters\MailAddressArrayConverter.cs" />
     <Compile Include="Converters\TKEYVALUELISTConverter.cs" />
     <Compile Include="Converters\NewtonsoftJsonSerializer.cs" />
@@ -51,16 +53,19 @@
     <Compile Include="Request\Contact.cs" />
     <Compile Include="Request\TKEYVALUELIST.cs" />
     <Compile Include="Response\Data\AggregateGraphStatistics.cs" />
+    <Compile Include="Response\Data\CampaignAggregate.cs" />
     <Compile Include="Response\Data\ContactData.cs" />
     <Compile Include="Response\Data\ContactDataUpdate.cs" />
     <Compile Include="Response\Data\ContactListData.cs" />
     <Compile Include="Response\Data\ContactMetadata.cs" />
     <Compile Include="Response\Data\DataItem.cs" />
+    <Compile Include="Response\Data\GraphStatistics.cs" />
     <Compile Include="Response\Data\ListRecipient.cs" />
     <Compile Include="Response\Data\MessageHistoryData.cs" />
     <Compile Include="Response\Data\MessageData.cs" />
     <Compile Include="Enum\MessageStatus.cs" />
     <Compile Include="Response\Data\MetaSenderData.cs" />
+    <Compile Include="Response\Data\MailjetSendMail .cs" />
     <Compile Include="Response\ErrorResponse.cs" />
     <Compile Include="Response\Response.cs" />
     <Compile Include="Response\Data\DNSData.cs" />
